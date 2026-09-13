@@ -26,7 +26,7 @@ const jb = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://san-hydro-energy.uz"),
+  metadataBase: new URL("https://san-hydro.uz"),
   title: {
     default: "SAN HYDRO ENERGY — Капельное орошение и Мини ГЭС",
     template: "%s — SAN HYDRO ENERGY",

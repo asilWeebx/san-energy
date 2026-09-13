@@ -1,6 +1,6 @@
 export const site = {
   name: "SAN HYDRO ENERGY",
-  domain: "san-hydro-energy.uz",
+  domain: "san-hydro.uz",
   phone: "+998 95 158 09 07",
   phoneRaw: "+998951580907",
   email: "San.Hydro.Energy@gmail.com",
