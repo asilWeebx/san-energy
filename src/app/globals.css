@@ -124,41 +124,43 @@
   color: transparent;
 }
 
-/* buttons */
-.btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 9px;
-  height: 50px;
-  padding-inline: 24px;
-  border-radius: 14px;
-  font-weight: 700;
-  font-size: 15px;
-  cursor: pointer;
-  transition: transform 0.2s, box-shadow 0.3s, background 0.3s, border-color 0.3s;
-  white-space: nowrap;
+/* buttons — layered so Tailwind utilities (hidden, whitespace-normal…) can override them */
+@layer components {
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
+    height: 50px;
+    padding-inline: 24px;
+    border-radius: 14px;
+    font-weight: 700;
+    font-size: 15px;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.3s, background 0.3s, border-color 0.3s;
+    white-space: nowrap;
+  }
+  .btn:active { transform: scale(0.97); }
+  .btn-primary {
+    background: linear-gradient(140deg, var(--color-accent), var(--color-accent-strong));
+    color: #fff;
+    box-shadow: 0 14px 30px -14px rgba(228, 20, 47, 0.5);
+  }
+  .btn-primary:hover {
+    box-shadow: 0 18px 40px -14px rgba(228, 20, 47, 0.68);
+    transform: translateY(-2px);
+  }
+  .btn-ghost {
+    background: var(--color-bg-elev);
+    border: 1px solid var(--color-line);
+    color: var(--color-ink);
+  }
+  .btn-ghost:hover {
+    border-color: var(--color-line-strong);
+    background: var(--color-fill-1);
+  }
+  .btn-sm { height: 40px; padding-inline: 16px; font-size: 13.5px; border-radius: 11px; }
 }
-.btn:active { transform: scale(0.97); }
-.btn-primary {
-  background: linear-gradient(140deg, var(--color-accent), var(--color-accent-strong));
-  color: #fff;
-  box-shadow: 0 14px 30px -14px rgba(228, 20, 47, 0.5);
-}
-.btn-primary:hover {
-  box-shadow: 0 18px 40px -14px rgba(228, 20, 47, 0.68);
-  transform: translateY(-2px);
-}
-.btn-ghost {
-  background: var(--color-bg-elev);
-  border: 1px solid var(--color-line);
-  color: var(--color-ink);
-}
-.btn-ghost:hover {
-  border-color: var(--color-line-strong);
-  background: var(--color-fill-1);
-}
-.btn-sm { height: 40px; padding-inline: 16px; font-size: 13.5px; border-radius: 11px; }
 
 /* eyebrow label */
 .eyebrow {

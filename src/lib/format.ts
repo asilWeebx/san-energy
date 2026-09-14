@@ -44,7 +44,7 @@ export function origFrom(
 export function shortDate(iso: string, locale: string): string {
   try {
     const d = new Date(iso);
-    return d.toLocaleDateString(locale === "uz" ? "ru-RU" : locale, {
+    return d.toLocaleDateString(locale.startsWith("uz") ? "ru-RU" : locale, {
       day: "2-digit",
       month: "short",
       year: "numeric",

@@ -5,21 +5,21 @@ import { CartProvider } from "@/components/providers/CartProvider";
 import { CustomerProvider } from "@/components/providers/CustomerProvider";
 
 const oswald = Oswald({
-  subsets: ["latin", "latin-ext", "cyrillic"],
+  subsets: ["latin", "latin-ext", "cyrillic", "cyrillic-ext"],
   weight: ["400", "500", "600", "700"],
   variable: "--font-oswald",
   display: "swap",
 });
 
 const manrope = Manrope({
-  subsets: ["latin", "latin-ext", "cyrillic"],
+  subsets: ["latin", "latin-ext", "cyrillic", "cyrillic-ext"],
   weight: ["400", "500", "600", "700", "800"],
   variable: "--font-manrope",
   display: "swap",
 });
 
 const jb = JetBrains_Mono({
-  subsets: ["latin", "latin-ext", "cyrillic"],
+  subsets: ["latin", "latin-ext", "cyrillic", "cyrillic-ext"],
   weight: ["500", "700"],
   variable: "--font-jb",
   display: "swap",

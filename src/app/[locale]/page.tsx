@@ -44,13 +44,13 @@ export default async function HomePage({
         <div className="glow" style={{ width: 460, height: 460, background: "rgba(46,168,255,.12)", bottom: -160, left: -120 }} />
         <div className="absolute inset-0 grid-bg opacity-70" />
 
-        <div className="container-x relative z-10 grid items-center gap-12 py-16 md:py-24 lg:grid-cols-[1.05fr_0.95fr] lg:py-28">
+        <div className="container-x relative z-10 grid grid-cols-1 items-center gap-12 py-16 md:py-24 lg:grid-cols-[1.05fr_0.95fr] lg:py-28">
           <div>
             <Reveal>
               <span className="eyebrow">{d.hero.eyebrow}</span>
             </Reveal>
             <Reveal delay={80}>
-              <h1 className="mt-6 text-[clamp(34px,6vw,68px)] font-semibold leading-[1.02]">
+              <h1 className="mt-6 text-[clamp(34px,6vw,68px)] font-semibold leading-[1.02] max-[359px]:text-[30px]">
                 {d.hero.titleLead}{" "}
                 <span className="grad-red">{d.hero.titleAccent}</span>
               </h1>
@@ -319,10 +319,10 @@ export default async function HomePage({
             <p className="mt-3 text-[var(--color-muted)]">{d.contact.subtitle}</p>
           </Reveal>
 
-          <div className="grid gap-6 lg:grid-cols-[1fr_1fr]">
+          <div className="grid grid-cols-1 gap-6 lg:grid-cols-[1fr_1fr]">
             <Reveal>
               <div className="flex h-full flex-col gap-4">
-                <div className="grid gap-4 sm:grid-cols-2">
+                <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                   <ContactCard icon={<Phone size={18} />} label={d.contact.phoneLabel} value={site.phone} href={`tel:${site.phoneRaw}`} />
                   <ContactCard icon={<Mail size={18} />} label={d.contact.emailLabel} value={site.email} href={`mailto:${site.email}`} />
                   <ContactCard icon={<MapPin size={18} />} label={d.contact.addressLabel} value={d.contact.address} />
@@ -341,7 +341,7 @@ export default async function HomePage({
             </Reveal>
 
             <Reveal delay={90}>
-              <div className="rounded-3xl border border-[var(--color-line)] glass p-6 sm:p-8">
+              <div className="rounded-3xl border border-[var(--color-line)] glass p-5 sm:p-8">
                 <h3 className="text-[20px] font-semibold">{d.contact.formTitle}</h3>
                 <div className="mt-5">
                   <ContactForm dict={d} />
@@ -372,7 +372,7 @@ function ContactCard({
         {icon}
       </span>
       <div className="mt-3 text-xs font-semibold uppercase tracking-wider text-[var(--color-faint)]">{label}</div>
-      <div className="mt-1 break-words text-[15px] font-medium text-[var(--color-ink)]">{value}</div>
+      <div className="mt-1 text-[15px] [overflow-wrap:anywhere] font-medium text-[var(--color-ink)]">{value}</div>
     </div>
   );
   return href ? <a href={href}>{inner}</a> : inner;

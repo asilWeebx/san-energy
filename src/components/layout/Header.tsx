@@ -14,7 +14,14 @@ export function Header({ locale, dict }: { locale: Locale; dict: Dictionary }) {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const pathname = usePathname();
+  const [prevPath, setPrevPath] = useState(pathname);
   const { count } = useCart();
+
+  // close the drawer on navigation (derived during render, not in an effect)
+  if (pathname !== prevPath) {
+    setPrevPath(pathname);
+    setOpen(false);
+  }
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
@@ -22,10 +29,6 @@ export function Header({ locale, dict }: { locale: Locale; dict: Dictionary }) {
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
-
-  useEffect(() => {
-    setOpen(false);
-  }, [pathname]);
 
   const p = (path: string) => `/${locale}${path}`;
   const nav = [
@@ -35,18 +38,21 @@ export function Header({ locale, dict }: { locale: Locale; dict: Dictionary }) {
     { href: p("/contact"), label: dict.nav.contact },
   ];
 
+  // cart lives only inside the shop; the shop CTA is pointless there
+  const inShop = pathname === p("/shop") || pathname.startsWith(p("/shop/"));
+
   const isActive = (href: string) =>
     href === p("") ? pathname === p("") : pathname.startsWith(href);
 
   return (
     <header
       className={`fixed inset-x-0 top-0 z-50 transition-all duration-300 ${
-        scrolled
+        scrolled || open
           ? "bg-[color-mix(in_srgb,var(--color-bg)_88%,transparent)] backdrop-blur-xl border-b border-[var(--color-line)]"
           : "bg-transparent"
       }`}
     >
-      <div className="container-x flex h-[72px] items-center gap-4">
+      <div className="container-x flex h-[72px] items-center gap-2 sm:gap-4">
         <Link href={p("")} className="flex items-center shrink-0" aria-label={site.name}>
           <Image
             src="/img/logo-emblem.png"
@@ -54,7 +60,7 @@ export function Header({ locale, dict }: { locale: Locale; dict: Dictionary }) {
             width={126}
             height={64}
             priority
-            className="h-9 w-auto sm:hidden"
+            className="h-8 w-auto sm:hidden"
           />
           <Image
             src="/img/logo-full.png"
@@ -62,16 +68,16 @@ export function Header({ locale, dict }: { locale: Locale; dict: Dictionary }) {
             width={438}
             height={68}
             priority
-            className="hidden h-8 w-auto sm:block md:h-9"
+            className="hidden h-8 w-auto sm:block xl:h-9"
           />
         </Link>
 
-        <nav className="ml-4 hidden items-center gap-1 lg:flex">
+        <nav className="ml-2 hidden items-center lg:flex xl:ml-4">
           {nav.map((n) => (
             <Link
               key={n.href}
               href={n.href}
-              className={`rounded-lg px-3.5 py-2 text-sm font-semibold transition ${
+              className={`whitespace-nowrap rounded-lg px-3 py-2 text-sm font-semibold transition ${
                 isActive(n.href)
                   ? "text-[var(--color-ink)]"
                   : "text-[var(--color-muted)] hover:text-[var(--color-ink)]"
@@ -82,10 +88,10 @@ export function Header({ locale, dict }: { locale: Locale; dict: Dictionary }) {
           ))}
         </nav>
 
-        <div className="ml-auto flex items-center gap-2">
+        <div className="ml-auto flex shrink-0 items-center gap-2">
           <a
             href={`tel:${site.phoneRaw}`}
-            className="hidden items-center gap-2 rounded-xl border border-[var(--color-line)] px-3 py-2 text-sm font-semibold text-[var(--color-silver-dim)] hover:text-[var(--color-ink)] hover:border-[var(--color-line-strong)] transition xl:inline-flex"
+            className="hidden items-center gap-2 whitespace-nowrap rounded-xl border border-[var(--color-line)] px-3 py-2 text-sm font-semibold text-[var(--color-silver-dim)] hover:text-[var(--color-ink)] hover:border-[var(--color-line-strong)] transition xl:inline-flex"
           >
             <Phone size={15} className="text-[var(--color-accent-light)]" />
             {site.phone}
@@ -101,27 +107,30 @@ export function Header({ locale, dict }: { locale: Locale; dict: Dictionary }) {
             <User size={18} />
           </Link>
 
-          <Link
-            href={p("/shop/cart")}
-            aria-label={dict.shop.viewCart}
-            className="relative grid h-10 w-10 place-items-center rounded-xl border border-[var(--color-line)] bg-[var(--color-fill-2)] text-[var(--color-muted)] hover:text-[var(--color-ink)] hover:bg-[var(--color-fill-3)] transition"
-          >
-            <ShoppingCart size={18} />
-            {count > 0 && (
-              <span className="absolute -right-1.5 -top-1.5 grid h-5 min-w-5 place-items-center rounded-full bg-[var(--color-accent)] px-1 text-[11px] font-bold text-white">
-                {count}
-              </span>
-            )}
-          </Link>
-
-          <Link href={p("/shop")} className="btn btn-primary btn-sm hidden md:inline-flex">
-            {dict.nav.shop}
-          </Link>
+          {inShop ? (
+            <Link
+              href={p("/shop/cart")}
+              aria-label={dict.shop.viewCart}
+              className="relative grid h-10 w-10 place-items-center rounded-xl border border-[var(--color-line)] bg-[var(--color-fill-2)] text-[var(--color-muted)] hover:text-[var(--color-ink)] hover:bg-[var(--color-fill-3)] transition"
+            >
+              <ShoppingCart size={18} />
+              {count > 0 && (
+                <span className="absolute -right-1.5 -top-1.5 grid h-5 min-w-5 place-items-center rounded-full bg-[var(--color-accent)] px-1 text-[11px] font-bold text-white">
+                  {count}
+                </span>
+              )}
+            </Link>
+          ) : (
+            <Link href={p("/shop")} className="btn btn-primary btn-sm hidden md:inline-flex">
+              {dict.nav.shop}
+            </Link>
+          )}
 
           <button
             onClick={() => setOpen((o) => !o)}
             aria-label={dict.nav.menu}
-            className="grid h-10 w-10 place-items-center rounded-xl border border-[var(--color-line)] bg-[var(--color-fill-2)] text-[var(--color-ink)] lg:hidden"
+            aria-expanded={open}
+            className="grid h-10 w-10 shrink-0 place-items-center rounded-xl border border-[var(--color-line)] bg-[var(--color-fill-2)] text-[var(--color-ink)] lg:hidden"
           >
             {open ? <X size={20} /> : <Menu size={20} />}
           </button>
@@ -130,7 +139,7 @@ export function Header({ locale, dict }: { locale: Locale; dict: Dictionary }) {
 
       {/* mobile drawer */}
       {open && (
-        <div className="lg:hidden border-t border-[var(--color-line)] bg-[var(--color-bg-soft)] backdrop-blur-xl">
+        <div className="lg:hidden max-h-[calc(100dvh-72px)] overflow-y-auto border-t border-[var(--color-line)] bg-[var(--color-bg-soft)] backdrop-blur-xl">
           <div className="container-x flex flex-col gap-1 py-4">
             {nav.map((n) => (
               <Link
@@ -145,10 +154,12 @@ export function Header({ locale, dict }: { locale: Locale; dict: Dictionary }) {
                 {n.label}
               </Link>
             ))}
-            <div className="mt-2 grid grid-cols-2 gap-2">
-              <Link href={p("/shop")} className="btn btn-primary">
-                {dict.nav.shop}
-              </Link>
+            <div className={`mt-2 grid gap-2 ${inShop ? "" : "min-[360px]:grid-cols-2"}`}>
+              {!inShop && (
+                <Link href={p("/shop")} className="btn btn-primary">
+                  {dict.nav.shop}
+                </Link>
+              )}
               <Link href={p("/account")} className="btn btn-ghost">
                 {dict.nav.account}
               </Link>

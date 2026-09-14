@@ -51,9 +51,9 @@ export function BannerCarousel({ slides }: { slides: Slide[] }) {
             </div>
           );
           return s.href ? (
-            <Link key={idx} href={s.href} className="shrink-0 basis-full">{body}</Link>
+            <Link key={idx} href={s.href} className="min-w-0 shrink-0 basis-full">{body}</Link>
           ) : (
-            <div key={idx} className="shrink-0 basis-full">{body}</div>
+            <div key={idx} className="min-w-0 shrink-0 basis-full">{body}</div>
           );
         })}
       </div>

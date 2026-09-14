@@ -54,7 +54,7 @@ export function ContactForm({ dict }: { dict: Dictionary }) {
         onChange={(e) => setMsg(e.target.value)}
       />
       {err && <p className="text-sm text-[var(--color-accent-light)]">{c.formError}</p>}
-      <button type="submit" className="btn btn-primary w-full">
+      <button type="submit" className="btn btn-primary h-auto min-h-[50px] w-full whitespace-normal py-3 text-center leading-snug">
         <Send size={17} /> {c.formSubmit}
       </button>
       <p className="text-center text-xs text-[var(--color-faint)]">{c.formNote}</p>

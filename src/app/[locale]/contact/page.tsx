@@ -48,16 +48,16 @@ export default async function ContactPage({
       </section>
 
       <section className="pb-20">
-        <div className="container-x grid gap-6 lg:grid-cols-[1fr_1fr]">
+        <div className="container-x grid grid-cols-1 gap-6 lg:grid-cols-[1fr_1fr]">
           <Reveal>
             <div className="flex h-full flex-col gap-4">
-              <div className="grid gap-4 sm:grid-cols-2">
+              <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                 {cards.map((c, i) => {
                   const inner = (
                     <div className="card-hover h-full rounded-2xl border border-[var(--color-line)] glass p-5">
                       <span className="grid h-10 w-10 place-items-center rounded-xl bg-[var(--color-accent)]/12 text-[var(--color-accent-light)]">{c.icon}</span>
                       <div className="mt-3 text-xs font-semibold uppercase tracking-wider text-[var(--color-faint)]">{c.label}</div>
-                      <div className="mt-1 break-words text-[15px] font-medium text-[var(--color-ink)]">{c.value}</div>
+                      <div className="mt-1 text-[15px] [overflow-wrap:anywhere] font-medium text-[var(--color-ink)]">{c.value}</div>
                     </div>
                   );
                   return (
@@ -65,7 +65,7 @@ export default async function ContactPage({
                   );
                 })}
               </div>
-              <div className="flex gap-3">
+              <div className="flex flex-wrap gap-3">
                 <a href={site.whatsapp} target="_blank" rel="noopener noreferrer" className="btn flex-1" style={{ background: "var(--color-wa)", color: "#04310f" }}>
                   <MessageCircle size={18} /> WhatsApp
                 </a>
@@ -86,7 +86,7 @@ export default async function ContactPage({
           </Reveal>
 
           <Reveal delay={90}>
-            <div className="rounded-3xl border border-[var(--color-line)] glass p-6 sm:p-8">
+            <div className="rounded-3xl border border-[var(--color-line)] glass p-5 sm:p-8">
               <h2 className="text-[22px] font-semibold">{d.contact.formTitle}</h2>
               <div className="mt-5">
                 <ContactForm dict={d} />
