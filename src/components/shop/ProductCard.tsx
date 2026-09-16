@@ -1,7 +1,7 @@
 "use client";
 import { useMemo, useState } from "react";
 import Link from "next/link";
-import { Plus, Minus, Check, ArrowRight } from "lucide-react";
+import { Plus, Minus, Check, ArrowRight, ShoppingCart } from "lucide-react";
 import type { Product, CartLine } from "@/lib/shop/types";
 import type { Dictionary } from "@/lib/i18n/dictionaries";
 import type { Locale } from "@/lib/i18n/config";
@@ -125,7 +125,7 @@ export function ProductCard({
         )}
       </Link>
 
-      <div className="flex flex-1 flex-col p-4">
+      <div className="flex flex-1 flex-col p-3 sm:p-4">
         {product.category_name && (
           <span className="text-[11px] font-medium uppercase tracking-wider text-[var(--color-faint)]">{product.category_name}</span>
         )}
@@ -151,7 +151,7 @@ export function ProductCard({
           </select>
         )}
 
-        <div className="mt-auto space-y-2.5 pt-3">
+        <div className="@container mt-auto space-y-2.5 pt-3">
           <div className="flex items-end justify-between gap-2">
             <div>
               {origCur != null && origCur > priceCur && (
@@ -164,14 +164,15 @@ export function ProductCard({
             </div>
 
             {product.has_variants && (
-              <Link href={href} className="btn btn-primary btn-sm shrink-0" aria-label={dict.shop.pickVariant}>
-                {dict.shop.pickVariant.split(" ")[0]} <ArrowRight size={15} />
+              <Link href={href} className="btn btn-primary btn-sm min-w-0 shrink-0" aria-label={dict.shop.pickVariant}>
+                <span className="hidden truncate @[210px]:inline">{dict.shop.pickVariant.split(" ")[0]}</span>
+                <ArrowRight size={15} />
               </Link>
             )}
           </div>
 
           {!product.has_variants && (
-            <div className="flex items-center gap-2">
+            <div className="flex flex-wrap items-center gap-2">
               {/* Miqdor: qo'lda yozish + tugmalar */}
               <div className="flex shrink-0 items-center rounded-xl border border-[var(--color-line)] p-0.5">
                 <button
@@ -203,12 +204,19 @@ export function ProductCard({
                 onClick={onAdd}
                 disabled={soldOut || atMax}
                 title={atMax ? `${maxQty} ${unitName}` : undefined}
-                className={`flex h-10 flex-1 items-center justify-center gap-1.5 rounded-xl text-[14px] font-semibold transition ${
+                className={`flex h-10 min-w-10 flex-1 items-center justify-center gap-1.5 rounded-xl text-[14px] font-semibold transition ${
                   soldOut || atMax ? "cursor-not-allowed border border-[var(--color-line)] text-[var(--color-faint)]" : justAdded ? "bg-[var(--color-leaf)] text-white" : "btn-primary"
                 }`}
                 aria-label={dict.shop.addToCart}
               >
-                {justAdded ? <Check size={17} /> : <><Plus size={17} /> {dict.shop.addToCart}</>}
+                {justAdded ? (
+                  <Check size={17} />
+                ) : (
+                  <>
+                    <ShoppingCart size={17} className="shrink-0" />
+                    <span className="hidden truncate @[210px]:inline">{dict.shop.addToCart}</span>
+                  </>
+                )}
               </button>
             </div>
           )}
