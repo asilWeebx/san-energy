@@ -1,13 +1,14 @@
 "use client";
 import { useMemo, useState } from "react";
 import Link from "next/link";
-import { Plus, Check, ArrowRight } from "lucide-react";
+import { Plus, Minus, Check, ArrowRight } from "lucide-react";
 import type { Product, CartLine } from "@/lib/shop/types";
 import type { Dictionary } from "@/lib/i18n/dictionaries";
 import type { Locale } from "@/lib/i18n/config";
 import { money, origFrom } from "@/lib/format";
 import { useCart } from "@/components/providers/CartProvider";
 import { ShopImage } from "./ShopImage";
+import { QtyInput } from "./QtyInput";
 
 export function ProductCard({
   product,
@@ -24,6 +25,7 @@ export function ProductCard({
 }) {
   const { add, lines } = useCart();
   const [justAdded, setJustAdded] = useState(false);
+  const [qty, setQty] = useState(1);
 
   const variants = product.variants || [];
   const units = product.units || [];
@@ -67,21 +69,25 @@ export function ProductCard({
     ? { text: `${maxQty} ${unitName} ${dict.shop.available}`, red: false }
     : null;
 
+  const remaining = capped ? Math.max(0, maxQty - lineQty) : Infinity;
+
   function onAdd() {
     if (!unit || soldOut || atMax) return;
+    const addQty = capped ? Math.min(qty, remaining) : qty;
+    if (addQty < 1) return;
     const line: CartLine = {
       key: cartKey,
       product_id: product.id,
       unit_id: unit.unit_id ?? undefined,
       name: product.name,
       image: product.image,
-      qty: 1,
+      qty: addQty,
       price: unit.price,
       currency: unit.currency,
       cur_price: unit.cur_price,
       maxQty: capped ? maxQty : undefined,
     };
-    add(line, 1);
+    add(line, addQty);
     setJustAdded(true);
     setTimeout(() => setJustAdded(false), 1200);
   }
@@ -145,7 +151,7 @@ export function ProductCard({
           </select>
         )}
 
-        <div className="mt-auto pt-3">
+        <div className="mt-auto space-y-2.5 pt-3">
           <div className="flex items-end justify-between gap-2">
             <div>
               {origCur != null && origCur > priceCur && (
@@ -157,24 +163,55 @@ export function ProductCard({
               </div>
             </div>
 
-            {product.has_variants ? (
+            {product.has_variants && (
               <Link href={href} className="btn btn-primary btn-sm shrink-0" aria-label={dict.shop.pickVariant}>
                 {dict.shop.pickVariant.split(" ")[0]} <ArrowRight size={15} />
               </Link>
-            ) : (
+            )}
+          </div>
+
+          {!product.has_variants && (
+            <div className="flex items-center gap-2">
+              {/* Miqdor: qo'lda yozish + tugmalar */}
+              <div className="flex shrink-0 items-center rounded-xl border border-[var(--color-line)] p-0.5">
+                <button
+                  type="button"
+                  onClick={() => setQty((q) => Math.max(1, q - 1))}
+                  disabled={soldOut}
+                  className="grid h-8 w-8 place-items-center rounded-lg hover:bg-[var(--color-fill-2)] disabled:cursor-not-allowed disabled:text-[var(--color-faint)]"
+                  aria-label="-"
+                >
+                  <Minus size={14} />
+                </button>
+                <QtyInput
+                  value={qty}
+                  max={capped ? maxQty : undefined}
+                  onCommit={(n) => setQty(n)}
+                  className="w-8 text-[14px]"
+                />
+                <button
+                  type="button"
+                  onClick={() => setQty((q) => (capped ? Math.min(maxQty, q + 1) : q + 1))}
+                  disabled={soldOut || (capped && qty >= maxQty)}
+                  className="grid h-8 w-8 place-items-center rounded-lg hover:bg-[var(--color-fill-2)] disabled:cursor-not-allowed disabled:text-[var(--color-faint)]"
+                  aria-label="+"
+                >
+                  <Plus size={14} />
+                </button>
+              </div>
               <button
                 onClick={onAdd}
                 disabled={soldOut || atMax}
                 title={atMax ? `${maxQty} ${unitName}` : undefined}
-                className={`grid h-10 w-10 shrink-0 place-items-center rounded-xl transition ${
+                className={`flex h-10 flex-1 items-center justify-center gap-1.5 rounded-xl text-[14px] font-semibold transition ${
                   soldOut || atMax ? "cursor-not-allowed border border-[var(--color-line)] text-[var(--color-faint)]" : justAdded ? "bg-[var(--color-leaf)] text-white" : "btn-primary"
                 }`}
                 aria-label={dict.shop.addToCart}
               >
-                {justAdded ? <Check size={18} /> : <Plus size={18} />}
+                {justAdded ? <Check size={17} /> : <><Plus size={17} /> {dict.shop.addToCart}</>}
               </button>
-            )}
-          </div>
+            </div>
+          )}
         </div>
       </div>
     </div>

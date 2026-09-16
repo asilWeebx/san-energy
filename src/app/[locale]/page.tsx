@@ -21,10 +21,20 @@ import { getDictionary } from "@/lib/i18n/dictionaries";
 import { Reveal } from "@/components/ui/Reveal";
 import { ContactForm } from "@/components/home/ContactForm";
 import { Faq } from "@/components/home/Faq";
+import { GallerySlider } from "@/components/home/GallerySlider";
 import { site } from "@/lib/site";
+import { getSiteImages } from "@/lib/siteImages";
 import { notFound } from "next/navigation";
 
 const advIcons = [Boxes, Wrench, TrendingUp, Compass];
+
+// Galereya sarlavhalari (dictionary'ga tegmasdan, sahifa ichida)
+const galleryText: Record<Locale, { eyebrow: string; title: string; subtitle: string }> = {
+  uz: { eyebrow: "Galereya", title: "Bizning ishlarimiz", subtitle: "Amalga oshirilgan loyihalar va jihozlar." },
+  "uz-cyrl": { eyebrow: "Галерея", title: "Бизнинг ишларимиз", subtitle: "Амалга оширилган лойиҳалар ва жиҳозлар." },
+  ru: { eyebrow: "Галерея", title: "Наши работы", subtitle: "Реализованные проекты и оборудование." },
+  en: { eyebrow: "Gallery", title: "Our work", subtitle: "Completed projects and equipment." },
+};
 
 export default async function HomePage({
   params,
@@ -35,6 +45,14 @@ export default async function HomePage({
   if (!isLocale(locale)) notFound();
   const d = getDictionary(locale as Locale);
   const p = (path: string) => `/${locale}${path}`;
+  const gt = galleryText[locale as Locale];
+
+  // Admin panelidan boshqariladigan rasmlar (alohida Django backend)
+  const [galleryImages, heroImages] = await Promise.all([
+    getSiteImages("gallery"),
+    getSiteImages("hero"),
+  ]);
+  const heroImg = heroImages.find((i) => i.is_active)?.url || null;
 
   return (
     <>
@@ -87,14 +105,24 @@ export default async function HomePage({
           <Reveal delay={160} className="relative">
             <div className="relative overflow-hidden rounded-[28px] border border-[var(--color-line)] shadow-2xl">
               <div className="relative aspect-[4/5] w-full sm:aspect-[5/5] lg:aspect-[4/5]">
-                <Image
-                  src="/img/hero-sprinkler.jpg"
-                  alt={d.services.drip.title}
-                  fill
-                  priority
-                  sizes="(max-width:1024px) 100vw, 44vw"
-                  className="object-cover"
-                />
+                {heroImg ? (
+                  // Admin panelidan qo'yilgan hero rasm (Django media)
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img
+                    src={heroImg}
+                    alt={d.services.drip.title}
+                    className="absolute inset-0 h-full w-full object-cover"
+                  />
+                ) : (
+                  <Image
+                    src="/img/hero-sprinkler.jpg"
+                    alt={d.services.drip.title}
+                    fill
+                    priority
+                    sizes="(max-width:1024px) 100vw, 44vw"
+                    className="object-cover"
+                  />
+                )}
                 <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-black/20" />
               </div>
               {/* floating badge */}
@@ -169,6 +197,22 @@ export default async function HomePage({
           </div>
         </div>
       </section>
+
+      {/* ================= GALLERY (admin-managed) ================= */}
+      {galleryImages.length > 0 && (
+        <section className="section" id="gallery">
+          <div className="container-x">
+            <Reveal className="mb-10 max-w-2xl">
+              <span className="eyebrow">{gt.eyebrow}</span>
+              <h2 className="mt-4 text-[clamp(26px,4vw,42px)] font-semibold">{gt.title}</h2>
+              <p className="mt-3 text-[var(--color-muted)]">{gt.subtitle}</p>
+            </Reveal>
+            <Reveal>
+              <GallerySlider images={galleryImages} />
+            </Reveal>
+          </div>
+        </section>
+      )}
 
       {/* ================= STATS BAND ================= */}
       <section className="relative py-4">

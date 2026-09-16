@@ -5,6 +5,7 @@ import { Check, ArrowRight, Target } from "lucide-react";
 import { isLocale, type Locale } from "@/lib/i18n/config";
 import { getDictionary } from "@/lib/i18n/dictionaries";
 import { Reveal } from "@/components/ui/Reveal";
+import { getSiteImages } from "@/lib/siteImages";
 import { notFound } from "next/navigation";
 
 export async function generateMetadata({
@@ -27,6 +28,11 @@ export default async function AboutPage({
   const d = getDictionary(locale as Locale);
   const p = (path: string) => `/${locale}${path}`;
 
+  // Admin panelidan boshqariladigan "Biz haqimizda" rasmlari
+  const aboutImages = (await getSiteImages("about")).filter((i) => i.is_active);
+  const mainAbout = aboutImages[0]?.url || null;
+  const restAbout = aboutImages.slice(1);
+
   return (
     <>
       <section className="relative overflow-hidden py-16 sm:py-20">
@@ -46,7 +52,12 @@ export default async function AboutPage({
           <Reveal>
             <div className="relative overflow-hidden rounded-3xl border border-[var(--color-line)]">
               <div className="relative aspect-[4/3] w-full">
-                <Image src="/img/facility.jpg" alt={d.brand.name} fill sizes="(max-width:1024px) 100vw, 50vw" className="object-cover" />
+                {mainAbout ? (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img src={mainAbout} alt={d.brand.name} className="absolute inset-0 h-full w-full object-cover" />
+                ) : (
+                  <Image src="/img/facility.jpg" alt={d.brand.name} fill sizes="(max-width:1024px) 100vw, 50vw" className="object-cover" />
+                )}
                 <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
               </div>
             </div>
@@ -86,6 +97,23 @@ export default async function AboutPage({
           </Reveal>
         </div>
       </section>
+
+      {restAbout.length > 0 && (
+        <section className="section pt-0">
+          <div className="container-x">
+            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+              {restAbout.map((img) => (
+                <Reveal key={img.id}>
+                  <div className="relative aspect-[4/3] overflow-hidden rounded-2xl border border-[var(--color-line)]">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img src={img.url} alt={img.title || d.brand.name} className="absolute inset-0 h-full w-full object-cover transition duration-500 hover:scale-105" />
+                  </div>
+                </Reveal>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
 
       <section className="section pt-0">
         <div className="container-x">

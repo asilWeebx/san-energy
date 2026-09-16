@@ -13,6 +13,7 @@ import {
 } from "lucide-react";
 import { MapPicker } from "./MapPicker";
 import { ShopImage } from "./ShopImage";
+import { QtyInput } from "./QtyInput";
 import type { Dictionary } from "@/lib/i18n/dictionaries";
 import type { Locale } from "@/lib/i18n/config";
 import type { StoreInfo } from "@/lib/shop/types";
@@ -157,7 +158,12 @@ export function CartClient({ dict, locale }: { dict: Dictionary; locale: Locale 
                   <button onClick={() => setQty(l.key, l.qty - 1)} className="grid h-8 w-8 place-items-center rounded-lg hover:bg-[var(--color-fill-2)]" aria-label="-">
                     <Minus size={15} />
                   </button>
-                  <span className="w-7 text-center text-[15px] font-semibold tabular-nums">{l.qty}</span>
+                  <QtyInput
+                    value={l.qty}
+                    max={l.maxQty ?? undefined}
+                    onCommit={(n) => setQty(l.key, n)}
+                    className="w-10 rounded-lg px-1 py-1 text-[15px] focus:bg-[var(--color-fill-2)]"
+                  />
                   <button
                     onClick={() => setQty(l.key, l.qty + 1)}
                     disabled={l.maxQty != null && l.qty >= l.maxQty}

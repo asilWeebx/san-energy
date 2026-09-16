@@ -20,6 +20,7 @@ import { useShopData } from "./ShopDataProvider";
 import { useCart } from "@/components/providers/CartProvider";
 import { ProductRow } from "./ProductRow";
 import { ShopImage } from "./ShopImage";
+import { QtyInput } from "./QtyInput";
 import { money, origFrom } from "@/lib/format";
 
 export function ProductDetailClient({
@@ -224,7 +225,12 @@ export function ProductDetailClient({
               <div className="mt-6 flex flex-wrap items-center gap-3">
                 <div className="flex items-center gap-2 rounded-xl border border-[var(--color-line)] p-1.5">
                   <button onClick={() => setQty((q) => Math.max(1, q - 1))} className="grid h-9 w-9 place-items-center rounded-lg hover:bg-[var(--color-fill-2)]" aria-label="-"><Minus size={16} /></button>
-                  <span className="w-8 text-center text-[16px] font-semibold tabular-nums">{qty}</span>
+                  <QtyInput
+                    value={qty}
+                    max={cappedD ? remaining : undefined}
+                    onCommit={(n) => setQty(n)}
+                    className="w-11 rounded-lg px-1 py-1 text-[16px] focus:bg-[var(--color-fill-2)]"
+                  />
                   <button
                     onClick={() => setQty((q) => (cappedD ? Math.min(remaining, q + 1) : q + 1))}
                     disabled={cappedD && qty >= remaining}

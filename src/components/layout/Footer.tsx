@@ -4,6 +4,7 @@ import { MapPin, Phone, Mail, Clock, Send, MessageCircle } from "lucide-react";
 import type { Locale } from "@/lib/i18n/config";
 import type { Dictionary } from "@/lib/i18n/dictionaries";
 import { site } from "@/lib/site";
+import { InstagramIcon, FacebookIcon } from "@/components/ui/BrandIcons";
 
 export function Footer({ locale, dict }: { locale: Locale; dict: Dictionary }) {
   const p = (path: string) => `/${locale}${path}`;
@@ -26,6 +27,14 @@ export function Footer({ locale, dict }: { locale: Locale; dict: Dictionary }) {
             <a href={site.telegram} target="_blank" rel="noopener noreferrer"
               className="grid h-10 w-10 place-items-center rounded-xl border border-[var(--color-line)] bg-[var(--color-fill-2)] text-[var(--color-tg)] hover:bg-[var(--color-fill-3)] transition" aria-label="Telegram">
               <Send size={18} />
+            </a>
+            <a href={site.instagram} target="_blank" rel="noopener noreferrer"
+              className="grid h-10 w-10 place-items-center rounded-xl border border-[var(--color-line)] bg-[var(--color-fill-2)] hover:bg-[var(--color-fill-3)] transition" style={{ color: "#E1306C" }} aria-label="Instagram">
+              <InstagramIcon size={18} />
+            </a>
+            <a href={site.facebook} target="_blank" rel="noopener noreferrer"
+              className="grid h-10 w-10 place-items-center rounded-xl border border-[var(--color-line)] bg-[var(--color-fill-2)] hover:bg-[var(--color-fill-3)] transition" style={{ color: "#1877F2" }} aria-label="Facebook">
+              <FacebookIcon size={18} />
             </a>
           </div>
         </div>

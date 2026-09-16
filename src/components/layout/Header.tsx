@@ -52,15 +52,30 @@ export function Header({ locale, dict }: { locale: Locale; dict: Dictionary }) {
           : "bg-transparent"
       }`}
     >
-      <div className="container-x flex h-[72px] items-center gap-2 sm:gap-4">
-        <Link href={p("")} className="flex items-center shrink-0" aria-label={site.name}>
+      <div className="container-x relative flex h-[72px] items-center gap-2 sm:gap-4">
+        {/* Menyu tugmasi — mobilda chapda */}
+        <button
+          onClick={() => setOpen((o) => !o)}
+          aria-label={dict.nav.menu}
+          aria-expanded={open}
+          className="grid h-10 w-10 shrink-0 place-items-center rounded-xl border border-[var(--color-line)] bg-[var(--color-fill-2)] text-[var(--color-ink)] lg:hidden"
+        >
+          {open ? <X size={20} /> : <Menu size={20} />}
+        </button>
+
+        {/* Logo — mobilda markazda va kattaroq; katta ekranda chapda */}
+        <Link
+          href={p("")}
+          className="flex items-center shrink-0 absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 lg:static lg:left-auto lg:top-auto lg:translate-x-0 lg:translate-y-0"
+          aria-label={site.name}
+        >
           <Image
             src="/img/logo-emblem.png"
             alt={site.name}
             width={126}
             height={64}
             priority
-            className="h-8 w-auto sm:hidden"
+            className="h-11 w-auto sm:hidden"
           />
           <Image
             src="/img/logo-full.png"
@@ -68,7 +83,7 @@ export function Header({ locale, dict }: { locale: Locale; dict: Dictionary }) {
             width={438}
             height={68}
             priority
-            className="hidden h-8 w-auto sm:block xl:h-9"
+            className="hidden h-10 w-auto sm:block xl:h-12"
           />
         </Link>
 
@@ -125,15 +140,6 @@ export function Header({ locale, dict }: { locale: Locale; dict: Dictionary }) {
               {dict.nav.shop}
             </Link>
           )}
-
-          <button
-            onClick={() => setOpen((o) => !o)}
-            aria-label={dict.nav.menu}
-            aria-expanded={open}
-            className="grid h-10 w-10 shrink-0 place-items-center rounded-xl border border-[var(--color-line)] bg-[var(--color-fill-2)] text-[var(--color-ink)] lg:hidden"
-          >
-            {open ? <X size={20} /> : <Menu size={20} />}
-          </button>
         </div>
       </div>
 

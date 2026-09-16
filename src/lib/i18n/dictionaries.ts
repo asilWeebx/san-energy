@@ -21,11 +21,11 @@ const ru = {
     menu: "Меню",
   },
   hero: {
-    eyebrow: "Капельное орошение хлопка • Мини ГЭС • Проектирование",
-    titleLead: "Инженерные решения для роста урожайности и повышения",
-    titleAccent: "энергоэффективности",
+    eyebrow: "Капельное орошение • Дождевальное орошение • Мини ГЭС",
+    titleLead: "Технологии эффективного капельного и дождевального",
+    titleAccent: "орошения сельхозкультур",
     subtitle:
-      "SAN HYDRO ENERGY предлагает системы капельного орошения для хлопка и решения по мини гидроэлектростанциям для производственных и инфраструктурных объектов. Мы проектируем, подбираем оборудование, выполняем монтаж и запуск.",
+      "Внедряем технологии эффективного капельного и дождевального орошения сельскохозяйственных культур — от проекта до монтажа и запуска.",
     ctaSecondary: "Смотреть решения",
     scroll: "Листайте вниз",
     stats: [
@@ -322,7 +322,7 @@ const uz: Dictionary = {
   },
   nav: {
     home: "Bosh sahifa",
-    about: "Kompaniya",
+    about: "Biz haqimizda",
     solutions: "Yechimlar",
     contact: "Aloqa",
     shop: "Onlayn do‘kon",
@@ -332,11 +332,11 @@ const uz: Dictionary = {
     menu: "Menyu",
   },
   hero: {
-    eyebrow: "Paxta uchun tomchilatib sug‘orish • Mini GES • Loyihalash",
-    titleLead: "Hosildorlikni oshiruvchi va energiya samaradorligini oshiruvchi",
-    titleAccent: "muhandislik yechimlari",
+    eyebrow: "Tomchilatib sug‘orish • Yomg‘irlatib sug‘orish • Mini GES",
+    titleLead: "Qishloq xo‘jalik ekinlarini samarali tomchilatib va yomg‘irlatib",
+    titleAccent: "sug‘orish texnologiyalari",
     subtitle:
-      "SAN HYDRO ENERGY paxta dalalari uchun tomchilatib sug‘orish tizimlari va sanoat hamda infratuzilma obyektlari uchun mini gidroelektrostansiya yechimlarini taklif etadi. Biz loyihalaymiz, jihoz tanlaymiz, montaj va ishga tushirishni bajaramiz.",
+      "Qishloq xo‘jalik ekinlari uchun samarali tomchilatib va yomg‘irlatib sug‘orish texnologiyalarini joriy qilamiz. Loyihalashdan montaj va ishga tushirishgacha to‘liq xizmat.",
     ctaSecondary: "Yechimlarni ko‘rish",
     scroll: "Pastga suring",
     stats: [
@@ -468,7 +468,7 @@ const uz: Dictionary = {
     rights: "Barcha huquqlar himoyalangan.",
   },
   aboutPage: {
-    eyebrow: "Kompaniya",
+    eyebrow: "Biz haqimizda",
     title: "Suv va energiya muhandisligi",
     lead: "SAN HYDRO ENERGY — Guliston shahridagi kompaniya bo‘lib, tomchilatib sug‘orish tizimlari va mini gidroelektrostansiya yechimlarini loyihalaydi va joriy etadi.",
     p1: "Biz to‘liq tsiklda ishlaymiz: vazifani o‘rganamiz, gidravlik hisobni bajaramiz, jihozni tanlab yetkazamiz, montaj, sinov va ishga tushirishni amalga oshiramiz.",
@@ -617,11 +617,11 @@ const en: Dictionary = {
     menu: "Menu",
   },
   hero: {
-    eyebrow: "Drip irrigation for cotton • Mini hydropower • Engineering",
-    titleLead: "Engineering solutions that boost yield and improve",
-    titleAccent: "energy efficiency",
+    eyebrow: "Drip irrigation • Sprinkler irrigation • Mini hydropower",
+    titleLead: "Technologies for efficient drip and sprinkler",
+    titleAccent: "irrigation of crops",
     subtitle:
-      "SAN HYDRO ENERGY delivers drip irrigation systems for cotton and mini hydropower solutions for industrial and infrastructure sites. We design, select equipment, install and commission.",
+      "We implement technologies for efficient drip and sprinkler irrigation of agricultural crops — from design to installation and commissioning.",
     ctaSecondary: "Explore solutions",
     scroll: "Scroll down",
     stats: [
@@ -892,7 +892,7 @@ const uzCyrl: Dictionary = {
   },
   nav: {
     home: "Бош саҳифа",
-    about: "Компания",
+    about: "Биз ҳақимизда",
     solutions: "Ечимлар",
     contact: "Алоқа",
     shop: "Онлайн дўкон",
@@ -902,11 +902,11 @@ const uzCyrl: Dictionary = {
     menu: "Меню",
   },
   hero: {
-    eyebrow: "Пахта учун томчилатиб суғориш • Мини ГЭС • Лойиҳалаш",
-    titleLead: "Ҳосилдорликни оширувчи ва энергия самарадорлигини оширувчи",
-    titleAccent: "муҳандислик ечимлари",
+    eyebrow: "Томчилатиб суғориш • Ёмғирлатиб суғориш • Мини ГЭС",
+    titleLead: "Қишлоқ хўжалик экинларини самарали томчилатиб ва ёмғирлатиб",
+    titleAccent: "суғориш технологиялари",
     subtitle:
-      "SAN HYDRO ENERGY пахта далалари учун томчилатиб суғориш тизимлари ва саноат ҳамда инфратузилма объектлари учун мини гидроэлектростанция ечимларини таклиф этади. Биз лойиҳалаймиз, жиҳоз танлаймиз, монтаж ва ишга туширишни бажарамиз.",
+      "Қишлоқ хўжалик экинлари учун самарали томчилатиб ва ёмғирлатиб суғориш технологияларини жорий қиламиз. Лойиҳалашдан монтаж ва ишга туширишгача тўлиқ хизмат.",
     ctaSecondary: "Ечимларни кўриш",
     scroll: "Пастга суринг",
     stats: [
@@ -1038,7 +1038,7 @@ const uzCyrl: Dictionary = {
     rights: "Барча ҳуқуқлар ҳимояланган.",
   },
   aboutPage: {
-    eyebrow: "Компания",
+    eyebrow: "Биз ҳақимизда",
     title: "Сув ва энергия муҳандислиги",
     lead: "SAN HYDRO ENERGY — Гулистон шаҳридаги компания бўлиб, томчилатиб суғориш тизимлари ва мини гидроэлектростанция ечимларини лойиҳалайди ва жорий этади.",
     p1: "Биз тўлиқ циклда ишлаймиз: вазифани ўрганамиз, гидравлик ҳисобни бажарамиз, жиҳозни танлаб етказамиз, монтаж, синов ва ишга туширишни амалга оширамиз.",

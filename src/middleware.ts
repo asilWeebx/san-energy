@@ -17,12 +17,14 @@ function pickLocale(req: NextRequest): string {
 export function middleware(req: NextRequest) {
   const { pathname } = req.nextUrl;
 
-  // skip api, next internals, static files
+  // skip api, next internals, static files, admin (locale-siz, rasm boshqaruv)
   if (
     pathname.startsWith("/api") ||
     pathname.startsWith("/_next") ||
     pathname === "/favicon.ico" ||
     pathname.startsWith("/img") ||
+    pathname === "/admin" ||
+    pathname.startsWith("/admin/") ||
     PUBLIC_FILE.test(pathname)
   ) {
     return NextResponse.next();
