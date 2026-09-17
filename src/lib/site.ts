@@ -10,7 +10,10 @@ export const site = {
   instagram: "https://www.instagram.com/sanhydroenergy",
   facebook: "https://facebook.com/sanhydroenergy",
   // ── Karta (Guliston markazi — aniq nuqta uchun Google Maps havolasini bering) ──
-  mapQuery: "Gulistan,Uzbekistan",
+  mapQuery: "40.620686,68.712879",
+  // Yetkazish xaritasi shu nuqtadan boshlanadi
+  mapLat: 40.620686,
+  mapLng: 68.712879,
   mapEmbed:
-    "https://maps.google.com/maps?q=40.489700,68.784200&z=15&output=embed",
+    "https://maps.google.com/maps?q=40.620686,68.712879&z=16&output=embed",
 } as const;

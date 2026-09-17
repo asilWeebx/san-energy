@@ -3,9 +3,10 @@ import "leaflet/dist/leaflet.css";
 import { useEffect, useRef, useState } from "react";
 import type { Map as LMap } from "leaflet";
 import { MapPin, LocateFixed } from "lucide-react";
+import { site } from "@/lib/site";
 
 // Guliston, O'zbekiston (default)
-const DEFAULT: [number, number] = [40.4897, 68.7842];
+const DEFAULT: [number, number] = [site.mapLat, site.mapLng];
 
 export function MapPicker({
   onChange,
